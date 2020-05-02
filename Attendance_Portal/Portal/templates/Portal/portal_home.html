@@ -18,11 +18,34 @@
 
 <body >
 
-    <div id="content" style="background: url('.//portal.jpg');">
-        <div class="container-fluid" style="margin-top: 200px;" >
-            <div class="d-sm-flex justify-content-between align-items-center mb-4">
-                <h3 class="text-dark mb-0">Report</h3><a class="btn btn-sm d-none d-sm-inline-block" role="button" style="background-color: rgb(130,71,211); color: white;" href="{% url 'home' %}"><i class="fa fa-download" style="margin-left: 13px;color: rgb(255,255,255);width: 21px;font-size: 15px;"></i>&nbsp;Upload New File</a></div>
-            <div class="row" >
+    <div id="content" style="background-image: url('{% static 'Portal/assets/img/portal.jpg' %}');background-position: top;background-size: cover;background-repeat: no-repeat; width:100% height:100%">
+        <div class="container-fluid" style="padding-top: 150px;" >
+            
+
+            <div class="row" > 
+                <div class="col-lg-5 col-xl-4" style="display: block">
+                    <div class="card shadow mb-4">
+                        <div class="card-header d-flex justify-content-between align-items-center" style="background-color: #8247d3;">
+                            <h6 class=" font-weight-bold m-0" style="color: white;">Graph</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-area"><canvas style="height: 300px;" data-bs-chart="{&quot;type&quot;:&quot;doughnut&quot;,&quot;data&quot;:{&quot;labels&quot;:[&quot;> 85 %&quot;,&quot;> 65 %&quot;,&quot;< 65 %&quot;],&quot;datasets&quot;:[{&quot;label&quot;:&quot;&quot;,&quot;backgroundColor&quot;:[&quot;#8247d3&quot;,&quot;#EBB35C&quot;,&quot;#DE5A59&quot;],&quot;borderColor&quot;:[&quot;#ffffff&quot;,&quot;#ffffff&quot;,&quot;#ffffff&quot;],&quot;data&quot;:[&quot;{{ m85 }}&quot;,&quot;{{ m65 }}&quot;,&quot;{{ l65 }}&quot;]}]},&quot;options&quot;:{&quot;maintainAspectRatio&quot;:false,&quot;legend&quot;:{&quot;display&quot;:false},&quot;title&quot;:{}}}"></canvas></div>
+                            
+                    </div>
+                </div>
+                <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                    <a class="btn btn-sm d-none d-sm-inline-block" role="button" style="background-color: rgb(130,71,211); color: white;" href="{% url 'home' %}"><i class="fa fa-download" style="margin-left: 13px;color: rgb(255,255,255);width: 21px;font-size: 15px;"></i>&nbsp;Upload New File</a></div>
+
+                    <div style="width: auto;height: 100px;">
+
+                        <div style="background: #DE5A59;height: 40px;width: 260px;color: white;font-family: Lato;font-size: 20px;text-align: center;font-weight: bold;margin-bottom: 10px;border-radius: 3px;padding-top: 5px;">Less Than 65%</div>
+                        <div style="background: #EBB35C;height: 40px;width: 260px;color: white;font-family: Lato;font-size: 20px;text-align: center;font-weight: bold;margin-bottom: 10px;border-radius: 3px;padding-top: 5px;">Between 65% & 85%</div>
+                        <div style="background: rgb(130,71,211);height: 40px;width: 260px;color: white;font-family: Lato;font-size: 20px;text-align: center;font-weight: bold;margin-bottom: 10px;border-radius: 3px;padding-top: 5px;">Greater Than 85%</div>
+                        
+
+                    </div>
+            </div>
+
                 <div class="col-lg-7 col-xl-8">
                     <div class="card shadow">
                         <div class="card-header py-3" style="background:rgb(130,71,211)">
@@ -39,14 +62,36 @@
                                             <th>Percentage</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    
+                                    <tbody style="color: white;">
                                         {% for a,b,c,d in data %}
-                                        <tr>
-                                            <td>{{ a }}</td>
-                                            <td>{{ b }}</td>
-                                            <td>{{ c }}</td>
-                                            <td>{{ d }} %</td>
-                                        </tr>
+                                            {% if d <= 65 %}
+                                                <tr style="background:#DE5A59;">
+                                                    <td>{{ a }}</td>
+                                                    <td>{{ b }}</td>
+                                                    <td>{{ c }}</td>
+                                                    <td>{{ d }} %</td>
+                                                </tr>
+
+                                            {% elif d <= 85 %}
+
+                                                <tr style="background:#EBB35C;">
+                                                    <td>{{ a }}</td>
+                                                    <td>{{ b }}</td>
+                                                    <td>{{ c }}</td>
+                                                    <td>{{ d }} %</td>
+                                                </tr>
+
+                                            {% else %}
+
+                                                <tr style="background:#8247d3;">
+                                                    <td>{{ a }}</td>
+                                                    <td>{{ b }}</td>
+                                                    <td>{{ c }}</td>
+                                                    <td>{{ d }} %</td>
+                                                </tr>
+                                            {% endif %}
+                                            
                                         {% endfor %}
                                     </tbody>
 
@@ -55,18 +100,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-5 col-xl-4">
-                    <div class="card shadow mb-4">
-                        <div class="card-header d-flex justify-content-between align-items-center" style="background-color: rgb(130,71,211);">
-                            <h6 class=" font-weight-bold m-0" style="color: white;">Graph</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="chart-area"><canvas data-bs-chart="{    type&quot;:&quot;doughnut&quot;,&quot;data&quot;:{&quot;labels&quot;:[&quot;> 85 %&quot;,&quot;> 65 %&quot;,&quot;< 65 %&quot;],&quot;datasets&quot;:[{&quot;label&quot;:&quot;&quot;,&quot;backgroundColor&quot;:[&quot;#4e73df&quot;,&quot;#1cc88a&quot;,&quot;#36b9cc&quot;],&quot;borderColor&quot;:[&quot;#ffffff&quot;,&quot;#ffffff&quot;,&quot;#ffffff&quot;],&quot;data&quot;:[&quot;{{ m80 }}&quot;,&quot;{{ m50 }}&quot;,&quot;{{ l50 }}&quot;]}]},&quot;options&quot;:{&quot;maintainAspectRatio&quot;:false,&quot;legend&quot;:{&quot;display&quot;:false},&quot;title&quot;:{}}}"></canvas></div>
-                            <div
-                            class="text-center small mt-4"><span class="mr-2"><i class="fas fa-circle text-primary"></i>&nbsp;> 6</span><span class="mr-2"><i class="fas fa-circle text-success"></i>&nbsp;> 50 %</span><span class="mr-2"><i class="fas fa-circle text-info"></i>&nbsp;< 50 %</span></div>
-                    </div>
-                </div>
-            </div>
+
+            
         </div>
     </div>
     <script src="{% static 'Portal/assets/js/jquery.min.js'%}"></script>

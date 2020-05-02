@@ -25,9 +25,9 @@ def home(request):
 
                 stats = {
                     'data': data,
-                    'm80' : len(count[count['Percentage'] >= 80]),
-                    'm50' : len(count[count['Percentage'] >= 50]) - len(count[count['Percentage'] >= 80]),
-                    'l50' : len(count[count['Percentage'] < 50])
+                    'm85' : len(count[count['Percentage'] >= 85]),
+                    'm65' : len(count[count['Percentage'] >= 65]) - len(count[count['Percentage'] >= 85]),
+                    'l65' : len(count[count['Percentage'] < 65]),
                 }
                 return render(request, 'Portal/portal_home.html', stats)
             except:
