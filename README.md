@@ -6,4 +6,4 @@ python manage.py runserver
 
 ## Glimpse
 
-![](Attendance_Portal/Screenshot (309).png)
+![](Attendance_Portal/Screenshot%20(309).png)
