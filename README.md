@@ -1,2 +1,2 @@
-# Admisssion
+# Attendance Portal
 Django Project
